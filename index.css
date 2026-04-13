@@ -95,6 +95,14 @@ h6,
     color: var(--primary);
 }
 
+a.contact-link {
+    transition: color 0.2s ease;
+}
+
+a.contact-link:hover {
+    color: var(--primary-dim) !important;
+}
+
 .navbar-brutal {
     background-color: rgba(14, 14, 14, 0.8);
     backdrop-filter: blur(20px);
@@ -119,7 +127,7 @@ h6,
     background-color: var(--surface-low);
     border: 1px solid var(--outline-variant);
     transition: all 0.3s ease;
-    cursor: pointer;
+    cursor: help;
 }
 
 .project-card:hover {
@@ -129,7 +137,7 @@ h6,
 .project-img-container {
     aspect-ratio: 16/9;
     overflow: hidden;
-    background-color: var(--surface-high);
+    background-color: var(--surface-low);
 }
 
 .project-img {
@@ -138,13 +146,14 @@ h6,
     object-fit: cover;
     filter: grayscale(100%);
     opacity: 0.5;
+    transform: scale(0.95);
     transition: all 0.7s ease;
 }
 
 .project-card:hover .project-img {
     filter: grayscale(0%);
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1);
 }
 
 .tag {
@@ -157,6 +166,7 @@ h6,
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border: 1px solid var(--outline-variant);
+    opacity: 0.6;
 }
 
 .about-card {
@@ -188,18 +198,43 @@ h6,
     }
 }
 
-.logo-container {
+.scale-120 {
+    scale: 120%;
+}
+
+.scale-200 {
+    scale: 200%;
+}
+
+.logo-group {
     display: inline-flex;
     align-items: center;
     justify-content: start;
+    flex-wrap: wrap;
     gap: 0.5rem;
 
-    & img {
+    & .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: content-box;
         width: 24px;
         height: 24px;
         background-color: var(--bs-light, #f8f9fa);
         border: 2px solid var(--bs-light, #f8f9fa);
         border-radius: var(--bs-border-radius-sm, 0.25rem);
+        overflow: hidden;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(94%);
+        }
+    }
+
+    & img {
+        max-width: 24px;
+        max-height: 24px;
+        object-fit: cover;
     }
 }
 
@@ -227,11 +262,19 @@ h6,
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 0.5rem;
     transition: border-color 0.3s ease;
+
+    & > svg {
+        transition: transform 0.3s ease;
+    }
 }
 
 .connect-link:hover {
     border-color: var(--background);
     color: var(--background);
+
+    & > svg {
+        transform: translateX(30%);
+    }
 }
 
 .contact-form-container {
@@ -250,6 +293,14 @@ h6,
     font-size: 1.25rem;
     padding-bottom: 1rem;
     transition: border-color 0.3s ease;
+
+    &::placeholder {
+        color: var(--bs-dark-text-emphasis);
+    }
+
+    &:hover {
+        border-color: var(--bs-dark-text-emphasis);
+    }
 }
 
 .form-control-brutal:focus {
@@ -340,4 +391,50 @@ h6,
 
 h1 {
     font-size: 1.2rem;
+}
+
+.extra-tags {
+    font-size: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.project-card details {
+    display: none;
+}
+
+.description-large {
+    font-size: 16px !important;
+}
+
+@media screen and (max-width: 992px) {
+    .project-card .description-large {
+        display: none;
+    }
+
+    .project-card details {
+        font-size: 16px !important;
+    }
+
+    .project-card summary {
+        display: inline-block;
+        width: 100%;
+        &::after {
+            content: "...";
+        }
+        &::marker {
+            display: none;
+        }
+    }
+
+    .project-card details[open] summary {
+        display: inline;
+        width: fit-content;
+        float: inline-start;
+        text-decoration: underline;
+        &::after {
+            content: " ";
+            white-space: pre;
+        }
+    }
 }
